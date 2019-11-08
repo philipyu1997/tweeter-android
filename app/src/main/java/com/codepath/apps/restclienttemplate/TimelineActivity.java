@@ -1,5 +1,6 @@
 package com.codepath.apps.restclienttemplate;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -119,8 +120,9 @@ public class TimelineActivity extends AppCompatActivity {
 
         if (item.getItemId() == R.id.compose) {
 //            Compose icon has been tapped
-            Toast.makeText(this, "Compose", Toast.LENGTH_SHORT).show();
 //            Navigate to the compose activity
+            Intent intent = new Intent(this, ComposeActivity.class);
+            startActivity(intent);
             return true;
         }
 
