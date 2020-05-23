@@ -1,4 +1,4 @@
-package com.codepath.apps.restclienttemplate;
+package com.yuphilip.apps.restclienttemplate.controller.adapters;
 
 import android.content.Context;
 import android.text.format.DateUtils;
@@ -12,7 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.codepath.apps.restclienttemplate.models.Tweet;
+import com.yuphilip.apps.restclienttemplate.R;
+import com.yuphilip.apps.restclienttemplate.model.Tweet;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

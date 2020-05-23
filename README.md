@@ -1,132 +1,63 @@
-# Project 2 - *Tweeter*
+# Tweeter
 
-**Tweeter** is an android app that allows a user to view his Twitter timeline. The app utilizes [Twitter REST API](https://dev.twitter.com/rest/public).
+## Table of Contents
+1. [Overview](#Overview)
+2. [Product Specs](#Product-Specs)
+3. [App Walkthrough](#App-Walkthrough)
+4. [APIs](#APIs)
+5. [Libraries](#Libraries)
+6. [Credits](#Credits)
 
-Time spent: **8** hours spent in total
+## Overview
+### Description
 
-## Tweeter Part 2
+Tweeter is a simple Twitter client that allows users to view their feed and compose, favorite, and retweet tweets.
 
+## Product Specs
 ### User Stories
 
-#### REQUIRED
-The following **required** functionality is completed:
-
-- [X] User can **compose and post a new tweet**
-  - [X] User can click a “Compose” icon in the Action Bar on the top right
-  - [X] User can then enter a new tweet and post this to twitter
-  - [X] User is taken back to home timeline with **new tweet visible** in timeline
-  - [X] Newly created tweet should be manually inserted into the timeline and not rely on a full refresh
-  - [X] User can **see a counter with total number of characters left for tweet** on compose tweet page
-
-#### OPTIONAL
-The following **optional** features are implemented:
-
-- [ ] User can **pull down to refresh tweets timeline**
-- [ ] User is using **"Twitter branded" colors and styles**
-- [ ] User sees an **indeterminate progress indicator** when any background or network task is happening
-- [ ] User can **select "reply" from detail view to respond to a tweet**
-  - [ ] User that wrote the original tweet is **automatically "@" replied in compose**
-- [ ] User can tap a tweet to **open a detailed tweet view**
-  - [ ] User can **take favorite (and unfavorite) or reweet** actions on a tweet
-- [ ] User can **see embedded image media within a tweet** on list or detail view.
-
-#### BONUS
-The following **bonus** features are implemented:
-
-- [ ] User can view more tweets as they scroll with infinite pagination
-- [ ] Compose tweet functionality is build using modal overlay
-- [ ] Use Parcelable instead of Serializable using the popular [Parceler library](http://guides.codepath.org/android/Using-Parceler).
-- [ ] Replace all icon drawables and other static image assets with [vector drawables](http://guides.codepath.org/android/Drawables#vector-drawables) where appropriate.
-- [ ] User can **click a link within a tweet body** on tweet details view. The click will launch the web browser with relevant page opened.
-- [ ] User can view following / followers list through any profile they view.
-- [ ] User can see embedded image media within the tweet detail view
-- [ ] Use the popular ButterKnife annotation library to reduce view boilerplate.
-- [ ] On the Twitter timeline, leverage the [CoordinatorLayout](http://guides.codepath.org/android/Handling-Scrolls-with-CoordinatorLayout#responding-to-scroll-events) to apply scrolling behavior that [hides / shows the toolbar](http://guides.codepath.org/android/Using-the-App-ToolBar#reacting-to-scroll).
-- [ ] User can **open the twitter app offline and see last loaded tweets**. Persisted in SQLite tweets are refreshed on every application launch. While "live data" is displayed when app can get it from Twitter API, it is also saved for use in offline mode.
-
-#### ADDITIONAL
-The following **additional** features are implemented:
-
-- [ ] List anything else that you can get done to improve the app functionality!
-
-### Video Walkthrough
-
-Here's a walkthrough of implemented user stories:
-
-<img src='https://i.imgur.com/xnehMFi.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
-
-GIF created with [LiceCap](http://www.cockos.com/licecap/).
-
-### Notes
-
-Describe any challenges encountered while building the app.
-
-### Open-source libraries used
-
-- [Android Async HTTP](https://github.com/codepath/CPAsyncHttpClient) - Simple asynchronous HTTP requests with JSON parsing
-- [Glide](https://github.com/bumptech/glide) - Image loading and caching library for Android
-
-## Tweeter Part 1
-
-### User Stories
-
-#### REQUIRED
-The following **required** functionality is completed:
-
-- [X] User can **sign in to Twitter** using OAuth login
-- [X]	User can **view tweets from their home timeline**
-  - [X] User is displayed the username, name, and body for each tweet
-  - [X] User is displayed the [relative timestamp](https://gist.github.com/nesquena/f786232f5ef72f6e10a7) for each tweet "8m", "7h"
-- [X] User can refresh tweets timeline by pulling down to refresh
-
-#### BONUS
-The following **optional** features are implemented:
-
-- [X] User can view more tweets as they scroll with infinite pagination
-- [ ] User can tap a tweet to display a "detailed" view of that tweet
-- [ ] User can open the twitter app offline and see last loaded tweets
+- [x] User shall be able to sign in to Twitter using OAuth login.
+- [x] User shall be able to view tweets from their home timeline.
+  - [x] User is displayed the username, name, and body for each tweet.
+  - [x] User is displayed the relative timestamp for each tweet "8m", "7h".
+- [x] User shall be able to refresh tweets timeline by pulling down to refresh.
+- [x] User shall be able to view more tweets as they scroll with infinite pagination.
+- [ ] User shall be able to tap a tweet to display a "detailed" view of that tweet.
 - [ ] On the Twitter timeline, leverage the CoordinatorLayout to apply scrolling behavior that hides / shows the toolbar.
-- [ ] Replace all icon drawables and other static image assets with [vector drawables](http://guides.codepath.org/android/Drawables#vector-drawables) where appropriate.
-- [ ] User can see embedded image media within the tweet detail view
-- [ ] User sees an **indeterminate progress indicator** when any background or network task is happening
-- [ ] User can **see embedded image media within a tweet** on list or detail view.
-- [ ] User can **click a link within a tweet body** on tweet details view. The click will launch the web browser with relevant page opened.
-- [ ] User can view following / followers list through any profile they view.
-- [ ] User is using **"Twitter branded" colors and styles**
+- [ ] Replace all icon drawables and other static image assets with vector drawables where appropriate.
+- [ ] User shall be able to see an indeterminate progress indicator when any background or network task is happening.
+- [ ] User shall be able to see embedded image media within a tweet on list or detail view.
+- [ ] User shall be able to click a link within a tweet body on tweet details view. The click will launch the web browser with relevant page opened.
+- [ ] User shall be able to view following / followers list through any profile they view.
+- [x] User shall be able to compose and post a new tweet.
+  - [x] User shall be able to click a “Compose” icon in the Action Bar on the top right.
+  - [x] User shall be able to then enter a new tweet and post this to Twitter.
+  - [x] User shall be taken back to home timeline with new tweet visible in timeline.
+  - [x] Newly created tweet shall be manually inserted into the timeline and not rely on a full refresh.
+  - [x] User shall be able to see a counter with total number of characters left for tweet on compose tweet page.
+- [ ] User shall be able to select "reply" from detail view to respond to a tweet.
+  - [ ] User that wrote the original tweet shall automatically "@" replied in compose.
+- [ ] User shall be able to take favorite (and unfavorite) or retweet actions on a tweet.
+- [ ] Compose tweet functionality shall be build using modal overlay.
+- [ ] Use Parcelable instead of Serializable using the popular Parceler library.
+- [ ] Use the popular ButterKnife annotation library to reduce view boilerplate.
+- [ ] User shall be able to open the Twitter app offline and see last loaded tweets. Persisted in SQLite tweets are refreshed on every application launch. While "live data" is displayed when app can get it from Twitter API, it is also saved for use in offline mode.
 
-The following **additional** features are implemented:
+## App Walkthrough
 
-- [ ] List anything else that you can get done to improve the app functionality!
+Here's a GIF of how the app works:
 
-### Video Walkthrough
+<img src="ADD_GIF_LINK" width=250><br>
 
-Here's a walkthrough of implemented user stories:
+## APIs
 
-<img src='https://imgur.com/KABQHBz.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+- [Twitter API](https://developer.twitter.com/en) - Allow developers to access core Twitter data — including update timelines, status data, and user information.
 
-GIF created with [LiceCap](http://www.cockos.com/licecap/).
+## Libraries
 
-### Notes
+- [Android Async HTTP](https://github.com/codepath/CPAsyncHttpClient) - Simple asynchronous HTTP requests with JSON parsing.
+- [Glide](https://github.com/bumptech/glide) - Image loading and caching library for Android.
 
-Describe any challenges encountered while building the app.
+## Credits
 
-### Open-source libraries used
-
-- [Android Async HTTP](https://github.com/codepath/CPAsyncHttpClient) - Simple asynchronous HTTP requests with JSON parsing
-- [Glide](https://github.com/bumptech/glide) - Image loading and caching library for Android
-
-### License
-
-    Copyright 2019 Philip Yu
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-        http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+>This is a companion project to CodePath's Professional Android Course, check out the full course at [www.codepath.org](https://codepath.org/).

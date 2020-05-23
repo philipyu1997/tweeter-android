@@ -1,4 +1,4 @@
-package com.codepath.apps.restclienttemplate;
+package com.yuphilip.apps.restclienttemplate.model;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;

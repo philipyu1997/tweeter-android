@@ -1,4 +1,4 @@
-package com.codepath.apps.restclienttemplate.models;
+package com.yuphilip.apps.restclienttemplate.model;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
@@ -12,7 +12,7 @@ public interface SampleModelDao {
 
     // @Query annotation requires knowing SQL syntax
     // See http://www.sqltutorial.org/
-    
+
     @Query("SELECT * FROM SampleModel WHERE id = :id")
     SampleModel byId(long id);
 

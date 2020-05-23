@@ -1,4 +1,4 @@
-package com.codepath.apps.restclienttemplate;
+package com.yuphilip.apps.restclienttemplate.controller.activities;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -7,9 +7,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 
-import com.codepath.apps.restclienttemplate.models.SampleModel;
-import com.codepath.apps.restclienttemplate.models.SampleModelDao;
 import com.codepath.oauth.OAuthLoginActionBarActivity;
+import com.yuphilip.apps.restclienttemplate.R;
+import com.yuphilip.apps.restclienttemplate.model.SampleModel;
+import com.yuphilip.apps.restclienttemplate.model.SampleModelDao;
+import com.yuphilip.apps.restclienttemplate.model.net.TwitterApp;
+import com.yuphilip.apps.restclienttemplate.model.net.TwitterClient;
 
 public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 

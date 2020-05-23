@@ -1,11 +1,10 @@
-package com.codepath.apps.restclienttemplate;
+package com.yuphilip.apps.restclienttemplate.controller.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,8 +12,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.yuphilip.apps.restclienttemplate.R;
+import com.yuphilip.apps.restclienttemplate.controller.adapters.TweetsAdapter;
+import com.yuphilip.apps.restclienttemplate.model.EndlessRecyclerViewScrollListener;
+import com.yuphilip.apps.restclienttemplate.model.Tweet;
+import com.yuphilip.apps.restclienttemplate.model.net.TwitterApp;
+import com.yuphilip.apps.restclienttemplate.model.net.TwitterClient;
 
 import org.json.JSONArray;
 import org.json.JSONException;

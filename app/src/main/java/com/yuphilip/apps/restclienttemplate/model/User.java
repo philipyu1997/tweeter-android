@@ -1,4 +1,4 @@
-package com.codepath.apps.restclienttemplate.models;
+package com.yuphilip.apps.restclienttemplate.model;
 
 import org.json.JSONException;
 import org.json.JSONObject;

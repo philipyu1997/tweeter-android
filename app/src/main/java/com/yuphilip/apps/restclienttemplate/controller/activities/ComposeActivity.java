@@ -1,6 +1,4 @@
-package com.codepath.apps.restclienttemplate;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.yuphilip.apps.restclienttemplate.controller.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,8 +8,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.codepath.apps.restclienttemplate.models.Tweet;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.yuphilip.apps.restclienttemplate.R;
+import com.yuphilip.apps.restclienttemplate.model.Tweet;
+import com.yuphilip.apps.restclienttemplate.model.net.TwitterApp;
+import com.yuphilip.apps.restclienttemplate.model.net.TwitterClient;
 
 import org.json.JSONException;
 import org.parceler.Parcels;
