@@ -1,4 +1,4 @@
-package com.yuphilip.apps.restclienttemplate.model.helper;
+package com.yuphilip.model.helper;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;

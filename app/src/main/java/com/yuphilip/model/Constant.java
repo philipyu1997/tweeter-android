@@ -1,4 +1,4 @@
-package com.yuphilip.apps.restclienttemplate.model;
+package com.yuphilip.model;
 
 import android.text.format.DateUtils;
 

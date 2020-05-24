@@ -1,4 +1,4 @@
-package com.yuphilip.apps.restclienttemplate.model;
+package com.yuphilip.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

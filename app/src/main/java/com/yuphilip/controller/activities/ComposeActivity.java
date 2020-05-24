@@ -1,5 +1,6 @@
-package com.yuphilip.apps.restclienttemplate.controller.activities;
+package com.yuphilip.controller.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,12 +10,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.yuphilip.apps.restclienttemplate.R;
-import com.yuphilip.apps.restclienttemplate.model.Tweet;
-import com.yuphilip.apps.restclienttemplate.model.net.TwitterApp;
-import com.yuphilip.apps.restclienttemplate.model.net.TwitterClient;
+import com.yuphilip.apps.restclienttemplate.databinding.ActivityComposeBinding;
+import com.yuphilip.model.Tweet;
+import com.yuphilip.model.net.TwitterApp;
+import com.yuphilip.model.net.TwitterClient;
 
 import org.json.JSONException;
 import org.parceler.Parcels;
@@ -31,6 +34,7 @@ public class ComposeActivity extends AppCompatActivity {
     private EditText etCompose;
     private Button btnTweet;
     private TwitterClient client;
+    private ActivityComposeBinding binding;
 
     //endregion
 
@@ -38,11 +42,12 @@ public class ComposeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_compose);
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_compose);
 
         client = TwitterApp.getRestClient(this);
-        etCompose = findViewById(R.id.etCompose);
-        btnTweet = findViewById(R.id.btnTweets);
+        etCompose = binding.etCompose;
+        btnTweet = binding.btnTweets;
 
         // Set click listener on button
         btnTweet.setOnClickListener(new View.OnClickListener() {

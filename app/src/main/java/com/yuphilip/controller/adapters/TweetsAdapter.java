@@ -1,4 +1,4 @@
-package com.yuphilip.apps.restclienttemplate.controller.adapters;
+package com.yuphilip.controller.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,13 +11,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.yuphilip.apps.restclienttemplate.R;
-import com.yuphilip.apps.restclienttemplate.controller.activities.DetailActivity;
-import com.yuphilip.apps.restclienttemplate.model.Constant;
-import com.yuphilip.apps.restclienttemplate.model.Tweet;
+import com.yuphilip.apps.restclienttemplate.databinding.ItemTweetBinding;
+import com.yuphilip.controller.activities.DetailActivity;
+import com.yuphilip.model.Constant;
+import com.yuphilip.model.Tweet;
+import com.yuphilip.model.helper.LinkifiedTextView;
 
 import org.parceler.Parcels;
 
@@ -84,27 +87,30 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
 
     }
 
-    // Define a viewholder
+    // Define a view holder
     public class ViewHolder extends RecyclerView.ViewHolder {
 
+        ItemTweetBinding binding;
         RelativeLayout container;
         ImageView ivProfileImage;
-        TextView tvBody;
-        TextView tvScreenName;
         TextView tvName;
+        TextView tvScreenName;
         TextView tvTime;
+        LinkifiedTextView tvBody;
 
-        // Define a viewholder
+        // Define a view holder
         public ViewHolder(@NonNull View itemView) {
 
             super(itemView);
 
-            container = itemView.findViewById(R.id.container);
-            ivProfileImage = itemView.findViewById(R.id.ivProfileImage);
-            tvBody = itemView.findViewById(R.id.tvBody);
-            tvScreenName = itemView.findViewById(R.id.tvScreenName);
-            tvName = itemView.findViewById(R.id.tvName);
-            tvTime = itemView.findViewById(R.id.tvTime);
+            binding = DataBindingUtil.bind(itemView);
+
+            container = binding.container;
+            ivProfileImage = binding.ivProfileImage;
+            tvName = binding.tvName;
+            tvScreenName = binding.tvScreenName;
+            tvTime = binding.tvTime;
+            tvBody = binding.tvBody;
 
         }
 

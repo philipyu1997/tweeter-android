@@ -1,4 +1,4 @@
-package com.yuphilip.apps.restclienttemplate.model;
+package com.yuphilip.model;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,30 +25,6 @@ public class Tweet {
 
     }
 
-    public String getBody() {
-
-        return body;
-
-    }
-
-    public String getCreatedAt() {
-
-        return createdAt;
-
-    }
-
-    public long getId() {
-
-        return id;
-
-    }
-
-    public User getUser() {
-
-        return user;
-
-    }
-
     public static Tweet fromJson(JSONObject jsonObject) throws JSONException {
 
         Tweet tweet = new Tweet();
@@ -71,6 +47,30 @@ public class Tweet {
         }
 
         return tweets;
+
+    }
+
+    public String getBody() {
+
+        return body;
+
+    }
+
+    public String getCreatedAt() {
+
+        return createdAt;
+
+    }
+
+    public long getId() {
+
+        return id;
+
+    }
+
+    public User getUser() {
+
+        return user;
 
     }
 

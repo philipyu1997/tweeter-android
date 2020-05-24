@@ -1,4 +1,4 @@
-package com.yuphilip.apps.restclienttemplate.model.net;
+package com.yuphilip.model.net;
 
 import android.content.Context;
 

@@ -1,4 +1,4 @@
-package com.yuphilip.apps.restclienttemplate.controller.activities;
+package com.yuphilip.controller.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,17 +8,19 @@ import android.view.MenuItem;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.yuphilip.apps.restclienttemplate.R;
-import com.yuphilip.apps.restclienttemplate.controller.adapters.TweetsAdapter;
-import com.yuphilip.apps.restclienttemplate.model.Tweet;
-import com.yuphilip.apps.restclienttemplate.model.helper.EndlessRecyclerViewScrollListener;
-import com.yuphilip.apps.restclienttemplate.model.net.TwitterApp;
-import com.yuphilip.apps.restclienttemplate.model.net.TwitterClient;
+import com.yuphilip.apps.restclienttemplate.databinding.ActivityTimelineBinding;
+import com.yuphilip.controller.adapters.TweetsAdapter;
+import com.yuphilip.model.Tweet;
+import com.yuphilip.model.helper.EndlessRecyclerViewScrollListener;
+import com.yuphilip.model.net.TwitterApp;
+import com.yuphilip.model.net.TwitterClient;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,6 +44,7 @@ public class TimelineActivity extends AppCompatActivity {
     private TweetsAdapter adapter;
     private SwipeRefreshLayout swipeContainer;
     private EndlessRecyclerViewScrollListener scrollListener;
+    private ActivityTimelineBinding binding;
 
     //endregion
 
@@ -50,11 +53,11 @@ public class TimelineActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_timeline);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_timeline);
 
         client = TwitterApp.getRestClient(this);
 
-        swipeContainer = findViewById(R.id.swipeContainer);
+        swipeContainer = binding.swipeContainer;
         // Configure the refreshing colors
         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
@@ -69,7 +72,7 @@ public class TimelineActivity extends AppCompatActivity {
         });
 
         // Find the recycler view
-        rvTweets = findViewById(R.id.rvTweets);
+        rvTweets = binding.rvTweets;
 
         // Init the list of the tweets and adapter
         tweets = new ArrayList<>();

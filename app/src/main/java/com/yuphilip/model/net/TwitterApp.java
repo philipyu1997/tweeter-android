@@ -1,4 +1,4 @@
-package com.yuphilip.apps.restclienttemplate.model.net;
+package com.yuphilip.model.net;
 
 import android.app.Application;
 import android.content.Context;
@@ -6,7 +6,7 @@ import android.content.Context;
 import androidx.room.Room;
 
 import com.facebook.stetho.Stetho;
-import com.yuphilip.apps.restclienttemplate.model.MyDatabase;
+import com.yuphilip.model.MyDatabase;
 
 /*
  * This is the Android application itself and is used to configure various settings

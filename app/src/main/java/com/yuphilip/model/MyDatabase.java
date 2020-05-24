@@ -1,4 +1,4 @@
-package com.yuphilip.apps.restclienttemplate.model;
+package com.yuphilip.model;
 
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
