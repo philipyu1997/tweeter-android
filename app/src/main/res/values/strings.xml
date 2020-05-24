@@ -7,4 +7,11 @@
     <string name="intent_host">cprest</string>
     <string name="tweet">Tweet</string>
 
+    <string name="compose">What\'s happening?</string>
+
+    <string name="name">John Appleseed</string>
+    <string name="screen_name">\@jappleseed</string>
+    <string name="created_at">8 min. ago</string>
+    <string name="text">Tweet content\.\.\.</string>
+
 </resources>

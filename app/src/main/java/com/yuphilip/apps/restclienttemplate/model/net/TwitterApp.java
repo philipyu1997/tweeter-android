@@ -19,14 +19,21 @@ import com.yuphilip.apps.restclienttemplate.model.MyDatabase;
  */
 public class TwitterApp extends Application {
 
+    //region Properties
+
     MyDatabase myDatabase;
 
+    //endregion
+
     public static TwitterClient getRestClient(Context context) {
+
         return (TwitterClient) TwitterClient.getInstance(TwitterClient.class, context);
+
     }
 
     @Override
     public void onCreate() {
+
         super.onCreate();
         // when upgrading versions, kill the original tables by using
         // fallbackToDestructiveMigration()
@@ -35,9 +42,11 @@ public class TwitterApp extends Application {
 
         // use chrome://inspect to inspect your SQL database
         Stetho.initializeWithDefaults(this);
+
     }
 
     public MyDatabase getMyDatabase() {
         return myDatabase;
     }
+
 }

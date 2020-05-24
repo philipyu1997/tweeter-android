@@ -16,10 +16,15 @@ import com.yuphilip.apps.restclienttemplate.model.net.TwitterClient;
 
 public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 
-    SampleModelDao sampleModelDao;
+    //region Properties
+
+    private SampleModelDao sampleModelDao;
+
+    //endregion
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -34,23 +39,27 @@ public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
                 sampleModelDao.insertModel(sampleModel);
             }
         });
-    }
 
+    }
 
     // Inflate the menu; this adds items to the action bar if it is present.
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         getMenuInflater().inflate(R.menu.login, menu);
         return true;
+
     }
 
     // OAuth authenticated successfully, launch primary authenticated activity
     // i.e Display application "homepage"
     @Override
     public void onLoginSuccess() {
+
         Log.i("rkprkp", "Login success");
         Intent i = new Intent(this, TimelineActivity.class);
         startActivity(i);
+
     }
 
     // OAuth authentication flow failed, handle the error

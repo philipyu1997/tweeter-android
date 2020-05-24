@@ -11,17 +11,46 @@ import java.util.List;
 @Parcel
 public class Tweet {
 
-    public String body;
-    public String createdAt;
-    public long id;
-    public User user;
+    //region Properties
+
+    String body;
+    String createdAt;
+    long id;
+    User user;
+
+    //endregion
 
     // empty constructor needed by the Parceler libraryk
     public Tweet() {
 
     }
 
+    public String getBody() {
+
+        return body;
+
+    }
+
+    public String getCreatedAt() {
+
+        return createdAt;
+
+    }
+
+    public long getId() {
+
+        return id;
+
+    }
+
+    public User getUser() {
+
+        return user;
+
+    }
+
     public static Tweet fromJson(JSONObject jsonObject) throws JSONException {
+
         Tweet tweet = new Tweet();
 
         tweet.body = jsonObject.getString("text");
@@ -30,9 +59,11 @@ public class Tweet {
         tweet.id = jsonObject.getLong("id");
 
         return tweet;
+
     }
 
     public static List<Tweet> fromJsonArray(JSONArray jsonArray) throws JSONException {
+
         List<Tweet> tweets = new ArrayList<>();
 
         for (int i = 0; i < jsonArray.length(); ++i) {
@@ -40,5 +71,7 @@ public class Tweet {
         }
 
         return tweets;
+
     }
+
 }

@@ -13,7 +13,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-        <activity android:name=".controller.activities.ComposeActivity"></activity>
+        <activity android:name=".controller.activities.DetailActivity"></activity>
+        <activity android:name=".controller.activities.ComposeActivity" />
         <activity android:name=".controller.activities.TimelineActivity" />
         <activity
             android:name=".controller.activities.LoginActivity"

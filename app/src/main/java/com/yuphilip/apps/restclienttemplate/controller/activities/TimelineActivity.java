@@ -15,8 +15,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.yuphilip.apps.restclienttemplate.R;
 import com.yuphilip.apps.restclienttemplate.controller.adapters.TweetsAdapter;
-import com.yuphilip.apps.restclienttemplate.model.EndlessRecyclerViewScrollListener;
 import com.yuphilip.apps.restclienttemplate.model.Tweet;
+import com.yuphilip.apps.restclienttemplate.model.helper.EndlessRecyclerViewScrollListener;
 import com.yuphilip.apps.restclienttemplate.model.net.TwitterApp;
 import com.yuphilip.apps.restclienttemplate.model.net.TwitterClient;
 
@@ -31,19 +31,25 @@ import okhttp3.Headers;
 
 public class TimelineActivity extends AppCompatActivity {
 
+    //region Properties
+
     public static final String TAG = "TimelineActivity";
     private final int REQUEST_CODE = 20;
 
-    TwitterClient client;
-    RecyclerView rvTweets;
-    List<Tweet> tweets;
-    TweetsAdapter adapter;
-    SwipeRefreshLayout swipeContainer;
-    EndlessRecyclerViewScrollListener scrollListener;
+    private TwitterClient client;
+    private RecyclerView rvTweets;
+    private List<Tweet> tweets;
+    private TweetsAdapter adapter;
+    private SwipeRefreshLayout swipeContainer;
+    private EndlessRecyclerViewScrollListener scrollListener;
+
+    //endregion
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_timeline);
 
         client = TwitterApp.getRestClient(this);
@@ -86,9 +92,11 @@ public class TimelineActivity extends AppCompatActivity {
         rvTweets.addOnScrollListener(scrollListener);
 
         populateHomeTimeline();
+
     }
 
     private void loadMoreData() {
+
         // Send an API request to retrieve appropriate paginated data
         client.getNextPageOfTweets(new JsonHttpResponseHandler() {
             @Override
@@ -112,46 +120,56 @@ public class TimelineActivity extends AppCompatActivity {
             public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
                 Log.e(TAG, "onFailure for loadMoreData", throwable);
             }
-        }, tweets.get(tweets.size() - 1).id);
+        }, tweets.get(tweets.size() - 1).getId());
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-//        Inflate the menu; this adds items to the action bar if it is present.
+
+        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (item.getItemId() == R.id.compose) {
-//            Compose icon has been tapped
-//            Navigate to the compose activity
+            // Compose icon has been tapped
+            // Navigate to the compose activity
             Intent intent = new Intent(this, ComposeActivity.class);
             startActivityForResult(intent, REQUEST_CODE);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
-//          Get data from the intent (tweet)
+            // Get data from the intent (tweet)
             Tweet tweet = Parcels.unwrap(data.getParcelableExtra("tweet"));
-//          Update the RV with the tweet
-//          Modify data source of tweets
+
+            // Update the RV with the tweet
+            // Modify data source of tweets
             tweets.add(0, tweet);
-//          Update the adapter
+
+            // Update the adapter
             adapter.notifyItemInserted(0);
             rvTweets.smoothScrollToPosition(0);
         }
+
         super.onActivityResult(requestCode, resultCode, data);
+
     }
 
     private void populateHomeTimeline() {
+
         client.getHomeTimeline(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
@@ -174,5 +192,7 @@ public class TimelineActivity extends AppCompatActivity {
                 Log.e(TAG, "onFailure!" + response, throwable);
             }
         });
+
     }
+
 }

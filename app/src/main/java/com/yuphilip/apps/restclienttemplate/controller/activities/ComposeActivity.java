@@ -23,26 +23,28 @@ import okhttp3.Headers;
 
 public class ComposeActivity extends AppCompatActivity {
 
+    //region Properties
+
     public static final String TAG = "ComposeActivity";
     public static final int MAX_TWEET_LENGTH = 140;
 
-    EditText etCompose;
-    Button btnTweet;
+    private EditText etCompose;
+    private Button btnTweet;
+    private TwitterClient client;
 
-    TwitterClient client;
-
+    //endregion
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compose);
 
         client = TwitterApp.getRestClient(this);
-
         etCompose = findViewById(R.id.etCompose);
         btnTweet = findViewById(R.id.btnTweets);
 
-//        Set click listener on button
+        // Set click listener on button
         btnTweet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,7 +60,8 @@ public class ComposeActivity extends AppCompatActivity {
                 }
 
                 Toast.makeText(ComposeActivity.this, tweetContent, Toast.LENGTH_LONG).show();
-//        Make an API call to Twitter to publish the tweet
+
+                // Make an API call to Twitter to publish the tweet
                 client.publishTweet(tweetContent, new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Headers headers, JSON json) {
@@ -87,4 +90,5 @@ public class ComposeActivity extends AppCompatActivity {
         });
 
     }
+
 }
