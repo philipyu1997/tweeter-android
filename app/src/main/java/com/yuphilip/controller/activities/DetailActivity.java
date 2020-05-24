@@ -1,6 +1,7 @@
 package com.yuphilip.controller.activities;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -8,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.yuphilip.apps.restclienttemplate.R;
 import com.yuphilip.apps.restclienttemplate.databinding.ActivityComposeBinding;
 import com.yuphilip.apps.restclienttemplate.databinding.ActivityDetailBinding;
@@ -25,6 +28,7 @@ public class DetailActivity extends AppCompatActivity {
     private TextView tvScreenName;
     private TextView tvTime;
     private TextView tvBody;
+    private ImageView ivMediaImage;
     private ActivityDetailBinding binding;
 
     //endregion
@@ -41,16 +45,32 @@ public class DetailActivity extends AppCompatActivity {
         tvScreenName = binding.tvScreenName;
         tvTime = binding.tvTime;
         tvBody = binding.tvBody;
+        ivMediaImage = binding.ivMediaImage;
 
         Tweet tweet = Parcels.unwrap(getIntent().getParcelableExtra("tweet"));
 
         Glide.with(this)
                 .load(tweet.getUser().getProfileImageUrl())
+                .transform(new CircleCrop())
                 .into(ivProfileImage);
+
         tvName.setText(tweet.getUser().getName());
-        tvScreenName.setText(tweet.getUser().getScreenName());
+        tvScreenName.setText("@" + tweet.getUser().getScreenName());
         tvTime.setText(Constant.getRelativeTimeAgo(tweet.getCreatedAt()));
         tvBody.setText(tweet.getBody());
+
+        int radius = 30; // corner radius, higher value = more rounded
+
+        if (tweet.getMediaUrl() != null) {
+            ivMediaImage.setVisibility(View.VISIBLE);
+
+            Glide.with(this)
+                    .load(tweet.getMediaUrl())
+                    .transform(new RoundedCorners(radius))
+                    .into(ivMediaImage);
+        } else {
+            ivMediaImage.setVisibility(View.GONE);
+        }
 
     }
 

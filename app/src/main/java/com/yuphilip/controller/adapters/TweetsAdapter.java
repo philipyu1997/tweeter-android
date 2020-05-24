@@ -15,6 +15,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.yuphilip.apps.restclienttemplate.R;
 import com.yuphilip.apps.restclienttemplate.databinding.ItemTweetBinding;
 import com.yuphilip.controller.activities.DetailActivity;
@@ -97,6 +99,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         TextView tvScreenName;
         TextView tvTime;
         LinkifiedTextView tvBody;
+        ImageView ivMediaImage;
 
         // Define a view holder
         public ViewHolder(@NonNull View itemView) {
@@ -111,6 +114,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvScreenName = binding.tvScreenName;
             tvTime = binding.tvTime;
             tvBody = binding.tvBody;
+            ivMediaImage = binding.ivMediaImage;
 
         }
 
@@ -118,12 +122,26 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
 
             Glide.with(context)
                     .load(tweet.getUser().getProfileImageUrl())
+                    .transform(new CircleCrop())
                     .into(ivProfileImage);
 
             tvName.setText(tweet.getUser().getName());
             tvScreenName.setText("@" + tweet.getUser().getScreenName());
             tvTime.setText(Constant.getRelativeTimeAgo(tweet.getCreatedAt()));
             tvBody.setText(tweet.getBody());
+
+            int radius = 30; // corner radius, higher value = more rounded
+
+            if (tweet.getMediaUrl() != null) {
+                ivMediaImage.setVisibility(View.VISIBLE);
+
+                Glide.with(context)
+                        .load(tweet.getMediaUrl())
+                        .transform(new RoundedCorners(radius))
+                        .into(ivMediaImage);
+            } else {
+                ivMediaImage.setVisibility(View.GONE);
+            }
 
             container.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -1,5 +1,7 @@
 package com.yuphilip.model;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,10 +19,11 @@ public class Tweet {
     String createdAt;
     long id;
     User user;
+    String mediaUrl;
 
     //endregion
 
-    // empty constructor needed by the Parceler libraryk
+    // empty constructor needed by the Parceler library
     public Tweet() {
 
     }
@@ -33,6 +36,15 @@ public class Tweet {
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
         tweet.id = jsonObject.getLong("id");
+
+        // Fetch embedded media files
+        JSONObject entities = jsonObject.getJSONObject("entities");
+
+        if (entities.has("media")) {
+            JSONArray media = entities.getJSONArray("media");
+            JSONObject mediaObject = (JSONObject) media.get(0);
+            tweet.mediaUrl = mediaObject.getString("media_url");
+        }
 
         return tweet;
 
@@ -65,6 +77,12 @@ public class Tweet {
     public long getId() {
 
         return id;
+
+    }
+
+    public String getMediaUrl() {
+
+        return mediaUrl;
 
     }
 
