@@ -11,6 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -18,8 +20,9 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.yuphilip.R;
-import com.yuphilip.databinding.ActivityTimelineBinding;
 import com.yuphilip.controller.adapters.TweetsAdapter;
+import com.yuphilip.controller.fragments.ComposeFragment;
+import com.yuphilip.databinding.ActivityTimelineBinding;
 import com.yuphilip.model.Tweet;
 import com.yuphilip.model.TweetDao;
 import com.yuphilip.model.TweetWithUser;
@@ -92,9 +95,7 @@ public class TimelineActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "FAB compose button pressed...");
-
-                Intent intent = new Intent(TimelineActivity.this, ComposeActivity.class);
-                startActivityForResult(intent, REQUEST_CODE);
+                showTweetDialog();
             }
         });
 
@@ -136,6 +137,16 @@ public class TimelineActivity extends AppCompatActivity {
         });
 
         populateHomeTimeline();
+
+    }
+
+    private void showTweetDialog() {
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        ComposeFragment composeFragment = ComposeFragment.newInstance("Compose Tweet");
+
+        composeFragment.show(fragmentManager, "compose_fragment");
 
     }
 
@@ -206,12 +217,11 @@ public class TimelineActivity extends AppCompatActivity {
                 JSONArray jsonArray = json.jsonArray;
 
                 try {
-//                    final List<Tweet> tweetsFromNetwork = Tweet.fromJsonArray(jsonArray);
                     final List<Tweet> tweetsFromNetwork = Tweet.fromJsonArray(jsonArray);
+                    final List<User> usersFromNetwork = User.fromJsonTweetArray(tweetsFromNetwork);
 
                     adapter.clear();
                     adapter.addAll(tweetsFromNetwork);
-//                    adapter.notifyDataSetChanged();
                     swipeContainer.setRefreshing(false);
 
                     AsyncTask.execute(new Runnable() {
@@ -219,28 +229,10 @@ public class TimelineActivity extends AppCompatActivity {
                         public void run() {
                             Log.i(TAG, "Saving data into database");
 
-                            List<User> usersFromNetwork = User.fromJsonTweetArray(tweetsFromNetwork);
-
                             tweetDao.insertModel(usersFromNetwork.toArray(new User[0]));
                             tweetDao.insertModel(tweetsFromNetwork.toArray(new Tweet[0]));
                         }
                     });
-
-//                    AsyncTask.execute(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            Log.i(TAG, "Saving data into database");
-//                            List<User> usersFromNetwork = User.fromJsonTweetArray(tweetsFromNetwork);
-//
-//                            // Insert users
-//                            tweetDao.insertModel(usersFromNetwork.toArray(new User[0]));
-//
-//                            // Insert tweets
-//                            tweetDao.insertModel(tweetsFromNetwork.toArray(new Tweet[0]));
-//                        }
-//                    });
-
-
                 } catch (JSONException e) {
                     Log.e(TAG, "Json exception", e);
                 }
