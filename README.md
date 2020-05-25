@@ -23,8 +23,7 @@ Tweeter is a simple Twitter client that allows users to view their feed and comp
 - [x] User shall be able to refresh tweets timeline by pulling down to refresh.
 - [x] User shall be able to view more tweets as they scroll with infinite pagination.
 - [x] User shall be able to tap a tweet to display a "detailed" view of that tweet.
-- [ ] On the Twitter timeline, leverage the CoordinatorLayout to apply scrolling behavior that hides / shows the toolbar.
-- [ ] Replace all icon drawables and other static image assets with vector drawables where appropriate.
+- [x] Tool bar shall hide and when scrolling down and reappear when scrolling up.
 - [ ] User shall be able to see an indeterminate progress indicator when any background or network task is happening.
 - [x] User shall be able to see embedded image media within a tweet on list or detail view.
 - [x] User shall be able to click a link within a tweet body on tweet details view. The click will launch the web browser with relevant page opened.
