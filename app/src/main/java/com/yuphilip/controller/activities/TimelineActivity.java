@@ -1,10 +1,10 @@
 package com.yuphilip.controller.activities;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -17,10 +17,13 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.yuphilip.apps.restclienttemplate.R;
-import com.yuphilip.apps.restclienttemplate.databinding.ActivityTimelineBinding;
+import com.yuphilip.R;
+import com.yuphilip.databinding.ActivityTimelineBinding;
 import com.yuphilip.controller.adapters.TweetsAdapter;
 import com.yuphilip.model.Tweet;
+import com.yuphilip.model.TweetDao;
+import com.yuphilip.model.TweetWithUser;
+import com.yuphilip.model.User;
 import com.yuphilip.model.helper.EndlessRecyclerViewScrollListener;
 import com.yuphilip.model.net.TwitterApp;
 import com.yuphilip.model.net.TwitterClient;
@@ -29,7 +32,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.parceler.Parcels;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +44,7 @@ public class TimelineActivity extends AppCompatActivity {
     public static final String TAG = "TimelineActivity";
     private final int REQUEST_CODE = 20;
 
+    private TweetDao tweetDao;
     private TwitterClient client;
     private RecyclerView rvTweets;
     private List<Tweet> tweets;
@@ -60,6 +63,7 @@ public class TimelineActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_timeline);
 
         client = TwitterApp.getRestClient(this);
+        tweetDao = ((TwitterApp) getApplicationContext()).getMyDatabase().tweetDao();
 
         swipeContainer = binding.swipeContainer;
         // Configure the refreshing colors
@@ -117,6 +121,20 @@ public class TimelineActivity extends AppCompatActivity {
         // Adds the scroll listener to recyclerview
         rvTweets.addOnScrollListener(scrollListener);
 
+        // Query for existing tweets in the database
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                Log.i(TAG, "Showing data from database");
+
+                List<TweetWithUser> tweetWithUsers = tweetDao.recentItems();
+                List<Tweet> tweetsFromDB = TweetWithUser.getTweetList(tweetWithUsers);
+
+                adapter.clear();
+                adapter.addAll(tweetsFromDB);
+            }
+        });
+
         populateHomeTimeline();
 
     }
@@ -127,7 +145,7 @@ public class TimelineActivity extends AppCompatActivity {
         client.getNextPageOfTweets(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
-                Log.i(TAG, "onSuccess for loadMoreData" + json.toString());
+                // Log.i(TAG, "onSuccess for loadMoreData" + json.toString());
                 //  --> Send the request including an offset value (i.e `page`) as a query parameter.
                 //  --> Deserialize and construct new model objects from the API response
                 JSONArray jsonArray = json.jsonArray;
@@ -146,7 +164,7 @@ public class TimelineActivity extends AppCompatActivity {
             public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
                 Log.e(TAG, "onFailure for loadMoreData", throwable);
             }
-        }, tweets.get(tweets.size() - 1).getId());
+        }, tweets.get(tweets.size() - 1).id);
 
     }
 
@@ -184,14 +202,45 @@ public class TimelineActivity extends AppCompatActivity {
         client.getHomeTimeline(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
-                Log.i(TAG, "onSuccess!" + json.toString());
+                // Log.i(TAG, "onSuccess!" + json.toString());
                 JSONArray jsonArray = json.jsonArray;
 
                 try {
+//                    final List<Tweet> tweetsFromNetwork = Tweet.fromJsonArray(jsonArray);
+                    final List<Tweet> tweetsFromNetwork = Tweet.fromJsonArray(jsonArray);
+
                     adapter.clear();
-                    adapter.addAll(Tweet.fromJsonArray(jsonArray));
-                    adapter.notifyDataSetChanged();
+                    adapter.addAll(tweetsFromNetwork);
+//                    adapter.notifyDataSetChanged();
                     swipeContainer.setRefreshing(false);
+
+                    AsyncTask.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            Log.i(TAG, "Saving data into database");
+
+                            List<User> usersFromNetwork = User.fromJsonTweetArray(tweetsFromNetwork);
+
+                            tweetDao.insertModel(usersFromNetwork.toArray(new User[0]));
+                            tweetDao.insertModel(tweetsFromNetwork.toArray(new Tweet[0]));
+                        }
+                    });
+
+//                    AsyncTask.execute(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            Log.i(TAG, "Saving data into database");
+//                            List<User> usersFromNetwork = User.fromJsonTweetArray(tweetsFromNetwork);
+//
+//                            // Insert users
+//                            tweetDao.insertModel(usersFromNetwork.toArray(new User[0]));
+//
+//                            // Insert tweets
+//                            tweetDao.insertModel(tweetsFromNetwork.toArray(new Tweet[0]));
+//                        }
+//                    });
+
+
                 } catch (JSONException e) {
                     Log.e(TAG, "Json exception", e);
                 }

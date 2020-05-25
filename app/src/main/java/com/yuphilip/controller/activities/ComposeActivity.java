@@ -13,8 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
-import com.yuphilip.apps.restclienttemplate.R;
-import com.yuphilip.apps.restclienttemplate.databinding.ActivityComposeBinding;
+import com.yuphilip.R;
+import com.yuphilip.databinding.ActivityComposeBinding;
 import com.yuphilip.model.Tweet;
 import com.yuphilip.model.net.TwitterApp;
 import com.yuphilip.model.net.TwitterClient;

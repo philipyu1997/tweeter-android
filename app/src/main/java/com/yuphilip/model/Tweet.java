@@ -1,6 +1,13 @@
 package com.yuphilip.model;
 
+import android.service.autofill.AutofillService;
 import android.util.Log;
+
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -11,15 +18,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Parcel
+@Entity(foreignKeys = @ForeignKey(entity = User.class, parentColumns = "id", childColumns = "userId"))
 public class Tweet {
 
     //region Properties
 
-    String body;
-    String createdAt;
-    long id;
-    User user;
-    String mediaUrl;
+    @ColumnInfo
+    @PrimaryKey
+    public long id;
+
+    @Ignore
+    public User user;
+    @ColumnInfo
+    public long userId;
+    @ColumnInfo
+    public String createdAt;
+    @ColumnInfo
+    public String body;
+    @ColumnInfo
+    public String mediaUrl;
 
     //endregion
 
@@ -32,10 +49,11 @@ public class Tweet {
 
         Tweet tweet = new Tweet();
 
-        tweet.body = jsonObject.getString("text");
-        tweet.createdAt = jsonObject.getString("created_at");
-        tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
         tweet.id = jsonObject.getLong("id");
+        tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
+        tweet.userId = tweet.user.id;
+        tweet.createdAt = jsonObject.getString("created_at");
+        tweet.body = jsonObject.getString("text");
 
         // Fetch embedded media files
         JSONObject entities = jsonObject.getJSONObject("entities");
@@ -59,36 +77,6 @@ public class Tweet {
         }
 
         return tweets;
-
-    }
-
-    public String getBody() {
-
-        return body;
-
-    }
-
-    public String getCreatedAt() {
-
-        return createdAt;
-
-    }
-
-    public long getId() {
-
-        return id;
-
-    }
-
-    public String getMediaUrl() {
-
-        return mediaUrl;
-
-    }
-
-    public User getUser() {
-
-        return user;
 
     }
 

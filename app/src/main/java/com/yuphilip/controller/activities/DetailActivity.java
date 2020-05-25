@@ -11,9 +11,9 @@ import androidx.databinding.DataBindingUtil;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.yuphilip.apps.restclienttemplate.R;
-import com.yuphilip.apps.restclienttemplate.databinding.ActivityComposeBinding;
-import com.yuphilip.apps.restclienttemplate.databinding.ActivityDetailBinding;
+import com.yuphilip.R;
+import com.yuphilip.databinding.ActivityComposeBinding;
+import com.yuphilip.databinding.ActivityDetailBinding;
 import com.yuphilip.model.Constant;
 import com.yuphilip.model.Tweet;
 
@@ -50,22 +50,22 @@ public class DetailActivity extends AppCompatActivity {
         Tweet tweet = Parcels.unwrap(getIntent().getParcelableExtra("tweet"));
 
         Glide.with(this)
-                .load(tweet.getUser().getProfileImageUrl())
+                .load(tweet.user.profileImageUrl)
                 .transform(new CircleCrop())
                 .into(ivProfileImage);
 
-        tvName.setText(tweet.getUser().getName());
-        tvScreenName.setText("@" + tweet.getUser().getScreenName());
-        tvTime.setText(Constant.getRelativeTimeAgo(tweet.getCreatedAt()));
-        tvBody.setText(tweet.getBody());
+        tvName.setText(tweet.user.name);
+        tvScreenName.setText("@" + tweet.user.screenName);
+        tvTime.setText(Constant.getRelativeTimeAgo(tweet.createdAt));
+        tvBody.setText(tweet.body);
 
         int radius = 30; // corner radius, higher value = more rounded
 
-        if (tweet.getMediaUrl() != null) {
+        if (tweet.mediaUrl != null) {
             ivMediaImage.setVisibility(View.VISIBLE);
 
             Glide.with(this)
-                    .load(tweet.getMediaUrl())
+                    .load(tweet.mediaUrl)
                     .transform(new RoundedCorners(radius))
                     .into(ivMediaImage);
         } else {

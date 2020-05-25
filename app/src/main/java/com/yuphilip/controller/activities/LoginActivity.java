@@ -1,7 +1,6 @@
 package com.yuphilip.controller.activities;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -10,18 +9,14 @@ import android.view.View;
 import androidx.databinding.DataBindingUtil;
 
 import com.codepath.oauth.OAuthLoginActionBarActivity;
-import com.yuphilip.apps.restclienttemplate.R;
-import com.yuphilip.apps.restclienttemplate.databinding.ActivityLoginBinding;
-import com.yuphilip.model.SampleModel;
-import com.yuphilip.model.SampleModelDao;
-import com.yuphilip.model.net.TwitterApp;
+import com.yuphilip.R;
+import com.yuphilip.databinding.ActivityLoginBinding;
 import com.yuphilip.model.net.TwitterClient;
 
 public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 
     //region Properties
 
-    private SampleModelDao sampleModelDao;
     private ActivityLoginBinding binding;
 
     //endregion
@@ -32,18 +27,6 @@ public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
         super.onCreate(savedInstanceState);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
-
-        final SampleModel sampleModel = new SampleModel();
-        sampleModel.setName("CodePath");
-
-        sampleModelDao = ((TwitterApp) getApplicationContext()).getMyDatabase().sampleModelDao();
-
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                sampleModelDao.insertModel(sampleModel);
-            }
-        });
 
     }
 

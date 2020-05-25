@@ -6,7 +6,7 @@ import android.content.Context;
 import androidx.room.Room;
 
 import com.facebook.stetho.Stetho;
-import com.yuphilip.model.MyDatabase;
+import com.yuphilip.model.database.MyDatabase;
 
 /*
  * This is the Android application itself and is used to configure various settings

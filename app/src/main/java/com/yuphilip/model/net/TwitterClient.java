@@ -8,8 +8,8 @@ import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.codepath.oauth.OAuthBaseClient;
 import com.github.scribejava.apis.TwitterApi;
 import com.github.scribejava.core.builder.api.BaseApi;
-import com.yuphilip.apps.restclienttemplate.BuildConfig;
-import com.yuphilip.apps.restclienttemplate.R;
+import com.yuphilip.BuildConfig;
+import com.yuphilip.R;
 
 /*
  *

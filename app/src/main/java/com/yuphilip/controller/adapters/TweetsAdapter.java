@@ -17,8 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.yuphilip.apps.restclienttemplate.R;
-import com.yuphilip.apps.restclienttemplate.databinding.ItemTweetBinding;
+import com.yuphilip.R;
+import com.yuphilip.databinding.ItemTweetBinding;
 import com.yuphilip.controller.activities.DetailActivity;
 import com.yuphilip.model.Constant;
 import com.yuphilip.model.Tweet;
@@ -121,22 +121,22 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         public void bind(final Tweet tweet) {
 
             Glide.with(context)
-                    .load(tweet.getUser().getProfileImageUrl())
+                    .load(tweet.user.profileImageUrl)
                     .transform(new CircleCrop())
                     .into(ivProfileImage);
 
-            tvName.setText(tweet.getUser().getName());
-            tvScreenName.setText("@" + tweet.getUser().getScreenName());
-            tvTime.setText(Constant.getRelativeTimeAgo(tweet.getCreatedAt()));
-            tvBody.setText(tweet.getBody());
+            tvName.setText(tweet.user.name);
+            tvScreenName.setText("@" + tweet.user.screenName);
+            tvTime.setText(Constant.getRelativeTimeAgo(tweet.createdAt));
+            tvBody.setText(tweet.body);
 
             int radius = 30; // corner radius, higher value = more rounded
 
-            if (tweet.getMediaUrl() != null) {
+            if (tweet.mediaUrl != null) {
                 ivMediaImage.setVisibility(View.VISIBLE);
 
                 Glide.with(context)
-                        .load(tweet.getMediaUrl())
+                        .load(tweet.mediaUrl)
                         .transform(new RoundedCorners(radius))
                         .into(ivMediaImage);
             } else {
