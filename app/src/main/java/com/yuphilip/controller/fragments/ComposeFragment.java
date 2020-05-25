@@ -116,9 +116,9 @@ public class ComposeFragment extends DialogFragment {
                             Log.i(TAG, "Published tweet says " + tweetContent);
                             Intent intent = new Intent();
                             intent.putExtra("tweet", Parcels.wrap(tweet));
-//                          //  set result code and bundle data for response
+                            // Set result code and bundle data for response
                             getActivity().setResult(RESULT_OK, intent);
-//                          //  closes the activity, pass data to parent
+                            // Closes the activity, pass data to parent
                             getActivity().finish();
                         } catch (JSONException e) {
                             e.printStackTrace();

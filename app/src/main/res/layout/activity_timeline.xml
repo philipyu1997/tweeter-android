@@ -5,7 +5,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/appBar"
         tools:context="com.yuphilip.controller.activities.TimelineActivity">
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -46,9 +45,9 @@
                 android:id="@+id/fabCompose"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|right"
+                android:layout_gravity="bottom|end"
                 android:layout_margin="16dp"
-                android:src="@drawable/ic_create"
+                android:src="@drawable/ic_compose"
                 app:layout_anchor="@id/rvTweets"
                 app:layout_anchorGravity="bottom|right|end" />
 

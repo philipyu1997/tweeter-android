@@ -1,13 +1,14 @@
 package com.yuphilip.model;
 
-import android.service.autofill.AutofillService;
-import android.util.Log;
+import android.widget.Button;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+
+import com.yuphilip.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,6 +38,14 @@ public class Tweet {
     public String body;
     @ColumnInfo
     public String mediaUrl;
+    @ColumnInfo
+    public boolean favorited;
+    @ColumnInfo
+    public long favoriteCount;
+    @ColumnInfo
+    public boolean retweeted;
+    @ColumnInfo
+    public long retweetCount;
 
     //endregion
 
@@ -54,6 +63,10 @@ public class Tweet {
         tweet.userId = tweet.user.id;
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.body = jsonObject.getString("text");
+        tweet.favorited = jsonObject.getBoolean("favorited");
+        tweet.favoriteCount = jsonObject.getLong("favorite_count");
+        tweet.retweeted = jsonObject.getBoolean("retweeted");
+        tweet.retweetCount = jsonObject.getLong("retweet_count");
 
         // Fetch embedded media files
         JSONObject entities = jsonObject.getJSONObject("entities");

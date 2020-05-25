@@ -7,7 +7,7 @@ import com.yuphilip.model.Tweet;
 import com.yuphilip.model.TweetDao;
 import com.yuphilip.model.User;
 
-@Database(entities = {Tweet.class, User.class}, version = 2)
+@Database(entities = {Tweet.class, User.class}, version = 3)
 public abstract class MyDatabase extends RoomDatabase {
 
     public abstract TweetDao tweetDao();
