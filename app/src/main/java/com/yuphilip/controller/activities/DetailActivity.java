@@ -9,12 +9,15 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.yuphilip.R;
+import com.yuphilip.controller.fragments.ReplyFragment;
 import com.yuphilip.databinding.ActivityDetailBinding;
 import com.yuphilip.model.Constant;
 import com.yuphilip.model.Tweet;
@@ -40,6 +43,7 @@ public class DetailActivity extends AppCompatActivity {
     private TextView tvFavorCount;
     private Button btnRetweet;
     private TextView tvRetweetCount;
+    private Button btnReply;
     private ActivityDetailBinding binding;
     private TwitterClient client;
 
@@ -63,6 +67,7 @@ public class DetailActivity extends AppCompatActivity {
         tvFavorCount = binding.tvFavorCount;
         btnRetweet = binding.btnRetweet;
         tvRetweetCount = binding.tvRetweetCount;
+        btnReply = binding.btnReply;
 
         final Tweet tweet = Parcels.unwrap(getIntent().getParcelableExtra("tweet"));
 
@@ -182,6 +187,31 @@ public class DetailActivity extends AppCompatActivity {
                 }
             }
         });
+
+        // Handle reply button
+        btnReply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i(TAG, "Reply to tweet");
+
+                showTweetDialog(tweet.id, tweet.user.screenName);
+            }
+        });
+
+    }
+
+    private void showTweetDialog(long id, String tweetOP) {
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        Bundle bundle = new Bundle();
+        bundle.putLong("tweetId", id);
+        bundle.putString("tweetOP", tweetOP);
+
+        ReplyFragment replyFragment = ReplyFragment.newInstance("Reply to Tweet");
+
+        replyFragment.setArguments(bundle);
+        replyFragment.show(fragmentManager, "reply_fragment");
 
     }
 

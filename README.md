@@ -34,8 +34,8 @@ Tweeter is a simple Twitter client that allows users to view their feed and comp
   - [x] User shall be taken back to home timeline with new tweet visible in timeline.
   - [x] Newly created tweet shall be manually inserted into the timeline and not rely on a full refresh.
   - [x] User shall be able to see a counter with total number of characters left for tweet on compose tweet page.
-- [ ] User shall be able to select "reply" from detail view to respond to a tweet.
-  - [ ] User that wrote the original tweet shall automatically "@" replied in compose.
+- [x] User shall be able to select "reply" from detail view to respond to a tweet.
+  - [x] User that wrote the original tweet shall automatically "@" replied in compose.
 - [x] User shall be able to take favorite (and unfavorite) or retweet actions on a tweet.
 - [x] User shall be able to open the Twitter app offline and see last loaded tweets. Persisted in SQLite tweets are refreshed on every application launch. While "live data" is displayed when app can get it from Twitter API, it is also saved for use in offline mode.
 

@@ -71,6 +71,15 @@
             android:scaleType="fitXY"
             tools:srcCompat="@tools:sample/avatars[0]" />
 
+        <Button
+            android:id="@+id/btnReply"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/ivMediaImage"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/ic_reply" />
+
         <TextView
             android:id="@+id/tvFavorCount"
             android:layout_width="wrap_content"

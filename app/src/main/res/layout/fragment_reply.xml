@@ -5,12 +5,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".controller.fragments.ComposeFragment">
+    tools:context=".controller.fragments.ReplyFragment">
+
+    <TextView
+        android:id="@+id/tvReplyTo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="Replying to @jappleseed" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/inputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/tvReplyTo"
         android:layout_margin="8dp"
         app:counterEnabled="true"
         app:counterMaxLength="140">
@@ -22,7 +30,7 @@
             android:layout_margin="8dp"
             android:ems="10"
             android:gravity="start|top"
-            android:hint="@string/compose"
+            android:hint="@string/reply_hint"
             android:inputType="textMultiLine"
             android:minLines="5" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -36,7 +44,7 @@
         android:layout_margin="8dp"
         android:background="@drawable/button_background"
         android:radius="8dp"
-        android:text="@string/tweet"
+        android:text="@string/reply"
         android:textColor="@color/textColorPrimary" />
 
 </RelativeLayout>

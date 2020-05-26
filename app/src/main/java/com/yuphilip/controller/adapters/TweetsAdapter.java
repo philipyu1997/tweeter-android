@@ -2,6 +2,7 @@ package com.yuphilip.controller.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -22,6 +25,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.yuphilip.R;
 import com.yuphilip.controller.activities.DetailActivity;
+import com.yuphilip.controller.fragments.ReplyFragment;
 import com.yuphilip.databinding.ItemTweetBinding;
 import com.yuphilip.model.Constant;
 import com.yuphilip.model.Tweet;
@@ -113,6 +117,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         TextView tvFavorCount;
         Button btnRetweet;
         TextView tvRetweetCount;
+        Button btnReply;
 
         // Define a view holder
         public ViewHolder(@NonNull View itemView) {
@@ -133,6 +138,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvFavorCount = binding.tvFavorCount;
             btnRetweet = binding.btnRetweet;
             tvRetweetCount = binding.tvRetweetCount;
+            btnReply = binding.btnReply;
 
         }
 
@@ -255,6 +261,16 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                 }
             });
 
+            // Handle reply button
+            btnReply.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.i(TAG, "Reply to tweet");
+
+                    showTweetDialog(tweet.id, tweet.user.screenName);
+                }
+            });
+
             container.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -267,6 +283,21 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             });
 
         }
+
+    }
+
+    private void showTweetDialog(long id, String tweetOP) {
+
+        FragmentManager fragmentManager = ((FragmentActivity) context).getSupportFragmentManager();
+
+        Bundle bundle = new Bundle();
+        bundle.putLong("tweetId", id);
+        bundle.putString("tweetOP", tweetOP);
+
+        ReplyFragment replyFragment = ReplyFragment.newInstance("Reply to Tweet");
+
+        replyFragment.setArguments(bundle);
+        replyFragment.show(fragmentManager, "reply_fragment");
 
     }
 

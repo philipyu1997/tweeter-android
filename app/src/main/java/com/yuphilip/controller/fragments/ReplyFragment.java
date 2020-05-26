@@ -1,7 +1,7 @@
 package com.yuphilip.controller.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,42 +19,39 @@ import androidx.fragment.app.Fragment;
 
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.yuphilip.R;
-import com.yuphilip.model.Tweet;
 import com.yuphilip.model.net.TwitterApp;
 import com.yuphilip.model.net.TwitterClient;
 
-import org.json.JSONException;
-import org.parceler.Parcels;
-
 import okhttp3.Headers;
-
-import static android.app.Activity.RESULT_OK;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ComposeFragment extends DialogFragment {
+public class ReplyFragment extends DialogFragment {
 
     //region Properties
 
-    public static final String TAG = "ComposeFragment";
+    public static final String TAG = "ReplyFragment";
     public static final int MAX_TWEET_LENGTH = 140;
 
     private EditText etCompose;
     private Button btnTweet;
+    private TextView tvReplyTo;
     private TwitterClient client;
+    private long tweetId;
+    private String tweetOP;
 
     //endregion
 
-    public ComposeFragment() {
+    public ReplyFragment() {
 
         // Required empty public constructor
 
     }
 
-    public static ComposeFragment newInstance(String title) {
+    public static ReplyFragment newInstance(String title) {
 
-        ComposeFragment fragment = new ComposeFragment();
+        ReplyFragment fragment = new ReplyFragment();
         Bundle args = new Bundle();
 
         args.putString("title", title);
@@ -63,13 +61,14 @@ public class ComposeFragment extends DialogFragment {
 
     }
 
-    // The onCreateView method is called when Fragment should create its View object hierarchy.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_compose, container, false);
+        tweetId = getArguments().getLong("tweetId");
+        tweetOP = getArguments().getString("tweetOP");
+        return inflater.inflate(R.layout.fragment_reply, container, false);
 
     }
 
@@ -84,59 +83,48 @@ public class ComposeFragment extends DialogFragment {
 
         etCompose = view.findViewById(R.id.etReply);
         btnTweet = view.findViewById(R.id.btnReply);
+        tvReplyTo = view.findViewById(R.id.tvReplyTo);
 
         String title = getArguments().getString("title", "Enter name");
         getDialog().setTitle(title);
 
+        tvReplyTo.setText(Html.fromHtml("Replying to <b><font color='#1DA1F2'>@" + tweetOP + "</font></b>"));
+        etCompose.setText(Html.fromHtml("<b><font color='#1DA1F2'>@" + tweetOP + "</b> "));
         etCompose.requestFocus();
 
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
-        // Set click listener on button
         btnTweet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final String tweetContent = etCompose.getText().toString();
 
                 if (tweetContent.isEmpty()) {
-                    Toast.makeText(view.getContext(), "Sorry, your tweet cannot be empty...", Toast.LENGTH_LONG).show();
+                    Toast.makeText(view.getContext(), "Sorry, your reply cannot be empty...", Toast.LENGTH_LONG).show();
                     return;
                 }
 
                 if (tweetContent.length() > MAX_TWEET_LENGTH) {
-                    Toast.makeText(view.getContext(), "Sorry, your tweet is too long...", Toast.LENGTH_LONG).show();
+                    Toast.makeText(view.getContext(), "Sorry, your reply is too long...", Toast.LENGTH_LONG).show();
                     return;
                 }
 
                 Toast.makeText(view.getContext(), tweetContent, Toast.LENGTH_LONG).show();
 
-                // Make an API call to Twitter to publish the tweet
-                client.publishTweet(tweetContent, new JsonHttpResponseHandler() {
+                // Make an API call to Twitter to reply to tweet
+                client.replyToTweet(tweetId, tweetContent, new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Headers headers, JSON json) {
-                        Log.i(TAG, "onSuccess to publish tweet");
-
-                        try {
-                            Tweet tweet = Tweet.fromJson(json.jsonObject);
-                            Log.i(TAG, "Published tweet says " + tweetContent);
-                            Intent intent = new Intent();
-                            intent.putExtra("tweet", Parcels.wrap(tweet));
-                            // Set result code and bundle data for response
-                            getActivity().setResult(RESULT_OK, intent);
-                            // Closes the activity, pass data to parent
-                            getActivity().finish();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        Log.i(TAG, "onSuccess to reply to tweet");
+                        getActivity().finish();
                     }
 
                     @Override
                     public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-                        Log.e(TAG, "onFailure to publish tweet", throwable);
+                        Log.e(TAG, "onFailure to reply to tweet", throwable);
                     }
                 });
             }
-
         });
 
     }

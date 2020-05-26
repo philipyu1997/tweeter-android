@@ -15,7 +15,6 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity android:name="com.yuphilip.controller.activities.DetailActivity"></activity>
-        <activity android:name="com.yuphilip.controller.activities.ComposeActivity" />
         <activity android:name="com.yuphilip.controller.activities.TimelineActivity" />
         <activity
             android:name="com.yuphilip.controller.activities.LoginActivity"
