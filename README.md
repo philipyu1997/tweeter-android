@@ -24,10 +24,9 @@ Tweeter is a simple Twitter client that allows users to view their feed and comp
 - [x] User shall be able to view more tweets as they scroll with infinite pagination.
 - [x] User shall be able to tap a tweet to display a "detailed" view of that tweet.
 - [x] Tool bar shall hide and when scrolling down and reappear when scrolling up.
-- [ ] User shall be able to see an indeterminate progress indicator when any background or network task is happening.
+- [x] User shall be able to see an indeterminate progress indicator when any background or network task is happening.
 - [x] User shall be able to see embedded image media within a tweet on list or detail view.
 - [x] User shall be able to click a link within a tweet body on tweet details view. The click will launch the web browser with relevant page opened.
-- [ ] User shall be able to view following / followers list through any profile they view.
 - [x] User shall be able to compose and post a new tweet.
   - [x] User shall be able to click a “Compose” icon in the Action Bar on the top right.
   - [x] User shall be able to then enter a new tweet and post this to Twitter.
@@ -43,7 +42,7 @@ Tweeter is a simple Twitter client that allows users to view their feed and comp
 
 Here's a GIF of how the app works:
 
-<img src="ADD_GIF_LINK" width=250><br>
+<img src="https://user-images.githubusercontent.com/35745973/82868207-18418a00-9ee1-11ea-841c-dcfb2f3f6ec9.gif" width=250><br>
 
 ## APIs
 

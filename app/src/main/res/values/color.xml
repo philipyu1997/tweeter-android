@@ -7,8 +7,5 @@
     <color name="colorAccent">#1DA1F2</color>
 
     <color name="textColorPrimary">#FFFFFF</color>
-    <color name="cursorAccent">#FFFFFF</color>
-    <color name="controlNormal">#FFFFFF</color>
-    <color name="controlActivated">#FFFFFF</color>
 
 </resources>

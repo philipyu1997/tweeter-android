@@ -37,11 +37,10 @@ public class ComposeFragment extends DialogFragment {
 
     //region Properties
 
-    public static final String TAG = "ComposeFragment";
-    public static final int MAX_TWEET_LENGTH = 140;
+    private static final String TAG = "ComposeFragment";
+    private static final int MAX_TWEET_LENGTH = 140;
 
     private EditText etCompose;
-    private Button btnTweet;
     private TwitterClient client;
     private ProgressBar progressBar;
 
@@ -84,8 +83,8 @@ public class ComposeFragment extends DialogFragment {
 
         client = TwitterApp.getRestClient(view.getContext());
 
-        etCompose = view.findViewById(R.id.etReply);
-        btnTweet = view.findViewById(R.id.btnReply);
+        etCompose = view.findViewById(R.id.etCompose);
+        Button btnTweet = view.findViewById(R.id.btnCompose);
         progressBar = view.findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
 

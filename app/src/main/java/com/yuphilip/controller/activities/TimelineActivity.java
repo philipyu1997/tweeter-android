@@ -44,8 +44,7 @@ public class TimelineActivity extends AppCompatActivity {
 
     //region Properties
 
-    public static final String TAG = "TimelineActivity";
-    private final int REQUEST_CODE = 20;
+    private static final String TAG = "TimelineActivity";
 
     private TweetDao tweetDao;
     private TwitterClient client;
@@ -53,8 +52,6 @@ public class TimelineActivity extends AppCompatActivity {
     private List<Tweet> tweets;
     private TweetsAdapter adapter;
     private SwipeRefreshLayout swipeContainer;
-    private EndlessRecyclerViewScrollListener scrollListener;
-    private ActivityTimelineBinding binding;
     private ProgressBar progressBar;
 
     //endregion
@@ -64,7 +61,7 @@ public class TimelineActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_timeline);
+        com.yuphilip.databinding.ActivityTimelineBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_timeline);
 
         client = TwitterApp.getRestClient(this);
         tweetDao = ((TwitterApp) getApplicationContext()).getMyDatabase().tweetDao();
@@ -88,7 +85,7 @@ public class TimelineActivity extends AppCompatActivity {
         progressBar.setVisibility(View.INVISIBLE);
 
         // Find the toolbar view inside the activity layout
-        Toolbar toolbar = (Toolbar) binding.toolbar;
+        Toolbar toolbar = binding.toolbar;
         // Sets the Toolbar to act as the ActionBar for this Activity window.
         // Make sure the toolbar exists in the activity and is not null
         setSupportActionBar(toolbar);
@@ -116,7 +113,7 @@ public class TimelineActivity extends AppCompatActivity {
         rvTweets.setLayoutManager(layoutManager);
         rvTweets.setAdapter(adapter);
 
-        scrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
+        EndlessRecyclerViewScrollListener scrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
                 Log.i(TAG, "onLoadMore:" + page);
@@ -204,6 +201,7 @@ public class TimelineActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
+        int REQUEST_CODE = 20;
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
             // Get data from the intent (tweet)
             Tweet tweet = Parcels.unwrap(data.getParcelableExtra("tweet"));

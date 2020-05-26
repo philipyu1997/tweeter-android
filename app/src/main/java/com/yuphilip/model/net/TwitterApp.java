@@ -21,7 +21,7 @@ public class TwitterApp extends Application {
 
     //region Properties
 
-    MyDatabase myDatabase;
+    private MyDatabase myDatabase;
 
     //endregion
 

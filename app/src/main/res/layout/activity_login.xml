@@ -14,7 +14,8 @@
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/ic_bird"/>
+            android:src="@drawable/ic_bird"
+            android:contentDescription="@string/content_description" />
 
         <Button
             android:layout_width="match_parent"

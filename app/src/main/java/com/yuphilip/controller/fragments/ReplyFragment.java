@@ -32,12 +32,10 @@ public class ReplyFragment extends DialogFragment {
 
     //region Properties
 
-    public static final String TAG = "ReplyFragment";
-    public static final int MAX_TWEET_LENGTH = 140;
+    private static final String TAG = "ReplyFragment";
+    private static final int MAX_TWEET_LENGTH = 140;
 
-    private EditText etCompose;
-    private Button btnTweet;
-    private TextView tvReplyTo;
+    private EditText etReply;
     private TwitterClient client;
     private long tweetId;
     private String tweetOP;
@@ -83,9 +81,9 @@ public class ReplyFragment extends DialogFragment {
 
         client = TwitterApp.getRestClient(view.getContext());
 
-        etCompose = view.findViewById(R.id.etReply);
-        btnTweet = view.findViewById(R.id.btnReply);
-        tvReplyTo = view.findViewById(R.id.tvReplyTo);
+        etReply = view.findViewById(R.id.etReply);
+        Button btnReply = view.findViewById(R.id.btnReply);
+        TextView tvReplyTo = view.findViewById(R.id.tvReplyTo);
         progressBar = view.findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
 
@@ -93,15 +91,15 @@ public class ReplyFragment extends DialogFragment {
         getDialog().setTitle(title);
 
         tvReplyTo.setText(Html.fromHtml("Replying to <b><font color='#1DA1F2'>@" + tweetOP + "</font></b>"));
-        etCompose.setText(Html.fromHtml("<b><font color='#1DA1F2'>@" + tweetOP + "</b> "));
-        etCompose.requestFocus();
+        etReply.setText(Html.fromHtml("<b><font color='#1DA1F2'>@" + tweetOP + "</b> "));
+        etReply.requestFocus();
 
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
-        btnTweet.setOnClickListener(new View.OnClickListener() {
+        btnReply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String tweetContent = etCompose.getText().toString();
+                final String tweetContent = etReply.getText().toString();
 
                 if (tweetContent.isEmpty()) {
                     Toast.makeText(view.getContext(), "Sorry, your reply cannot be empty...", Toast.LENGTH_LONG).show();

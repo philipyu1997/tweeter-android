@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="Replying to @jappleseed" />
+        android:text="@string/reply_to" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/inputLayout"
@@ -35,13 +35,6 @@
             android:minLines="5" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" />
-
     <Button
         android:id="@+id/btnReply"
         android:layout_width="wrap_content"
@@ -53,5 +46,11 @@
         android:radius="8dp"
         android:text="@string/reply"
         android:textColor="@color/textColorPrimary" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true" />
 
 </RelativeLayout>

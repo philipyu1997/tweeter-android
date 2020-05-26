@@ -16,7 +16,7 @@
         app:counterMaxLength="140">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etReply"
+            android:id="@+id/etCompose"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -27,15 +27,8 @@
             android:minLines="5" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" />
-
     <Button
-        android:id="@+id/btnReply"
+        android:id="@+id/btnCompose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/inputLayout"
@@ -45,5 +38,11 @@
         android:radius="8dp"
         android:text="@string/tweet"
         android:textColor="@color/textColorPrimary" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true" />
 
 </RelativeLayout>

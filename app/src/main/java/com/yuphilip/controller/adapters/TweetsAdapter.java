@@ -33,10 +33,10 @@ import com.yuphilip.model.helper.LinkifiedTextView;
 import com.yuphilip.model.net.TwitterApp;
 import com.yuphilip.model.net.TwitterClient;
 
-import org.json.JSONException;
 import org.parceler.Parcels;
 
 import java.util.List;
+import java.util.Locale;
 
 import okhttp3.Headers;
 
@@ -45,8 +45,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
     //region Properties
 
     private static final String TAG = "TweetsAdapter";
-    private Context context;
-    private List<Tweet> tweets;
+    private final Context context;
+    private final List<Tweet> tweets;
     private TwitterClient client;
 
     //endregion
@@ -106,22 +106,22 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
     // Define a view holder
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        ItemTweetBinding binding;
-        RelativeLayout container;
-        ImageView ivProfileImage;
-        TextView tvName;
-        TextView tvScreenName;
-        TextView tvTime;
-        LinkifiedTextView tvBody;
-        ImageView ivMediaImage;
-        Button btnFavor;
-        TextView tvFavorCount;
-        Button btnRetweet;
-        TextView tvRetweetCount;
-        Button btnReply;
+        final ItemTweetBinding binding;
+        final RelativeLayout container;
+        final ImageView ivProfileImage;
+        final TextView tvName;
+        final TextView tvScreenName;
+        final TextView tvTime;
+        final LinkifiedTextView tvBody;
+        final ImageView ivMediaImage;
+        final Button btnFavor;
+        final TextView tvFavorCount;
+        final Button btnRetweet;
+        final TextView tvRetweetCount;
+        final Button btnReply;
 
         // Define a view holder
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
 
             super(itemView);
 
@@ -143,7 +143,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
 
         }
 
-        public void bind(final Tweet tweet) {
+        void bind(final Tweet tweet) {
 
             Glide.with(context)
                     .load(tweet.user.profileImageUrl)
@@ -151,11 +151,11 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                     .into(ivProfileImage);
 
             tvName.setText(tweet.user.name);
-            tvScreenName.setText(String.format("@%s", tweet.user.screenName));
+            tvScreenName.setText(String.format(Locale.getDefault(),"@%s", tweet.user.screenName));
             tvTime.setText(Constant.getRelativeTimeAgo(tweet.createdAt));
             tvBody.setText(tweet.body);
-            tvFavorCount.setText(String.format("%d", tweet.favoriteCount));
-            tvRetweetCount.setText(String.format("%d", tweet.retweetCount));
+            tvFavorCount.setText(String.format(Locale.getDefault(),"%d", tweet.favoriteCount));
+            tvRetweetCount.setText(String.format(Locale.getDefault(),"%d", tweet.retweetCount));
 
             if (tweet.favorited) {
                 btnFavor.setBackgroundResource(R.drawable.ic_favor_red);
@@ -194,7 +194,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                                 Log.i(TAG, "Successfully favorited tweet...");
 
                                 btnFavor.setBackgroundResource(R.drawable.ic_favor_red);
-                                tvFavorCount.setText(String.format("%d", (tweet.favoriteCount + 1)));
+                                tvFavorCount.setText(String.format(Locale.getDefault(),"%d", (tweet.favoriteCount + 1)));
                             }
 
                             @Override
@@ -210,7 +210,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                                 Log.i(TAG, "Successfully unfavorited tweet...");
 
                                 btnFavor.setBackgroundResource(R.drawable.ic_favor_grey);
-                                tvFavorCount.setText(String.format("%d", (tweet.favoriteCount - 1)));
+                                tvFavorCount.setText(String.format(Locale.getDefault(),"%d", (tweet.favoriteCount - 1)));
                             }
 
                             @Override
@@ -234,7 +234,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                                 Log.i(TAG, "Successfully retweeted tweet...");
 
                                 btnRetweet.setBackgroundResource(R.drawable.ic_retweet_green);
-                                tvRetweetCount.setText(String.format("%d", (tweet.retweetCount + 1)));
+                                tvRetweetCount.setText(String.format(Locale.getDefault(),"%d", (tweet.retweetCount + 1)));
                             }
 
                             @Override
@@ -250,7 +250,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                                 Log.i(TAG, "Successfully unretweet tweet");
 
                                 btnRetweet.setBackgroundResource(R.drawable.ic_retweet_grey);
-                                tvRetweetCount.setText(String.format("%d", (tweet.retweetCount - 1)));
+                                tvRetweetCount.setText(String.format(Locale.getDefault(),"%d", (tweet.retweetCount - 1)));
                             }
 
                             @Override

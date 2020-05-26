@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
 import com.bumptech.glide.Glide;
@@ -26,6 +25,8 @@ import com.yuphilip.model.net.TwitterClient;
 
 import org.parceler.Parcels;
 
+import java.util.Locale;
+
 import okhttp3.Headers;
 
 public class DetailActivity extends AppCompatActivity {
@@ -33,18 +34,10 @@ public class DetailActivity extends AppCompatActivity {
     //region Properties
 
     private static final String TAG = "DetailActivity";
-    private ImageView ivProfileImage;
-    private TextView tvName;
-    private TextView tvScreenName;
-    private TextView tvTime;
-    private TextView tvBody;
-    private ImageView ivMediaImage;
     private Button btnFavor;
     private TextView tvFavorCount;
     private Button btnRetweet;
     private TextView tvRetweetCount;
-    private Button btnReply;
-    private ActivityDetailBinding binding;
     private TwitterClient client;
 
     //endregion
@@ -54,20 +47,20 @@ public class DetailActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_detail);
+        com.yuphilip.databinding.ActivityDetailBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_detail);
         client = TwitterApp.getRestClient(this);
 
-        ivProfileImage = binding.ivProfileImage;
-        tvName = binding.tvName;
-        tvScreenName = binding.tvScreenName;
-        tvTime = binding.tvTime;
-        tvBody = binding.tvBody;
-        ivMediaImage = binding.ivMediaImage;
+        ImageView ivProfileImage = binding.ivProfileImage;
+        TextView tvName = binding.tvName;
+        TextView tvScreenName = binding.tvScreenName;
+        TextView tvTime = binding.tvTime;
+        TextView tvBody = binding.tvBody;
+        ImageView ivMediaImage = binding.ivMediaImage;
         btnFavor = binding.btnFavor;
         tvFavorCount = binding.tvFavorCount;
         btnRetweet = binding.btnRetweet;
         tvRetweetCount = binding.tvRetweetCount;
-        btnReply = binding.btnReply;
+        Button btnReply = binding.btnReply;
 
         final Tweet tweet = Parcels.unwrap(getIntent().getParcelableExtra("tweet"));
 
@@ -77,11 +70,11 @@ public class DetailActivity extends AppCompatActivity {
                 .into(ivProfileImage);
 
         tvName.setText(tweet.user.name);
-        tvScreenName.setText("@" + tweet.user.screenName);
+        tvScreenName.setText(String.format(Locale.getDefault(), "@%s", tweet.user.screenName));
         tvTime.setText(Constant.getRelativeTimeAgo(tweet.createdAt));
         tvBody.setText(tweet.body);
-        tvFavorCount.setText(String.format("%d", tweet.favoriteCount));
-        tvRetweetCount.setText(String.format("%d", tweet.retweetCount));
+        tvFavorCount.setText(String.format(Locale.getDefault(), "%d", tweet.favoriteCount));
+        tvRetweetCount.setText(String.format(Locale.getDefault(), "%d", tweet.retweetCount));
 
         if (tweet.favorited) {
             btnFavor.setBackgroundResource(R.drawable.ic_favor_red);
@@ -120,7 +113,7 @@ public class DetailActivity extends AppCompatActivity {
                             Log.i(TAG, "Successfully favorited tweet...");
 
                             btnFavor.setBackgroundResource(R.drawable.ic_favor_red);
-                            tvFavorCount.setText(String.format("%d", (tweet.favoriteCount + 1)));
+                            tvFavorCount.setText(String.format(Locale.getDefault(), "%d", (tweet.favoriteCount + 1)));
                         }
 
                         @Override
@@ -136,7 +129,7 @@ public class DetailActivity extends AppCompatActivity {
                             Log.i(TAG, "Successfully unfavorited tweet...");
 
                             btnFavor.setBackgroundResource(R.drawable.ic_favor_grey);
-                            tvFavorCount.setText(String.format("%d", (tweet.favoriteCount - 1)));
+                            tvFavorCount.setText(String.format(Locale.getDefault(),"%d", (tweet.favoriteCount - 1)));
                         }
 
                         @Override
@@ -160,7 +153,7 @@ public class DetailActivity extends AppCompatActivity {
                             Log.i(TAG, "Successfully retweeted tweet...");
 
                             btnRetweet.setBackgroundResource(R.drawable.ic_retweet_green);
-                            tvRetweetCount.setText(String.format("%d", (tweet.retweetCount + 1)));
+                            tvRetweetCount.setText(String.format(Locale.getDefault(),"%d", (tweet.retweetCount + 1)));
                         }
 
                         @Override
@@ -176,7 +169,7 @@ public class DetailActivity extends AppCompatActivity {
                             Log.i(TAG, "Successfully unretweet tweet");
 
                             btnRetweet.setBackgroundResource(R.drawable.ic_retweet_grey);
-                            tvRetweetCount.setText(String.format("%d", (tweet.retweetCount - 1)));
+                            tvRetweetCount.setText(String.format(Locale.getDefault(),"%d", (tweet.retweetCount - 1)));
                         }
 
                         @Override

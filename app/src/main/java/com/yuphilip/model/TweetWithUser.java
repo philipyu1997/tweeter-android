@@ -9,10 +9,19 @@ public class TweetWithUser {
 
     // Embedded notation flattens the properties of the User object into the object, preserving encapsulation.
     @Embedded
+    private
     User user;
 
     @Embedded(prefix = "tweet_")
+    private
     Tweet tweets;
+
+    public TweetWithUser(User user, Tweet tweets) {
+
+        this.user = user;
+        this.tweets = tweets;
+
+    }
 
     public static List<Tweet> getTweetList(List<TweetWithUser> tweetWithUsers) {
 

@@ -1,14 +1,10 @@
 package com.yuphilip.model;
 
-import android.widget.Button;
-
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
-
-import com.yuphilip.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;

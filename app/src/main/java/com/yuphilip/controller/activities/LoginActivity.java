@@ -17,8 +17,6 @@ public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 
     //region Properties
 
-    private ActivityLoginBinding binding;
-
     //endregion
 
     @Override
@@ -26,7 +24,7 @@ public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 
         super.onCreate(savedInstanceState);
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
+        com.yuphilip.databinding.ActivityLoginBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
 
     }
 
