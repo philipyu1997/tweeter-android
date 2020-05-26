@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -54,6 +55,7 @@ public class TimelineActivity extends AppCompatActivity {
     private SwipeRefreshLayout swipeContainer;
     private EndlessRecyclerViewScrollListener scrollListener;
     private ActivityTimelineBinding binding;
+    private ProgressBar progressBar;
 
     //endregion
 
@@ -81,14 +83,18 @@ public class TimelineActivity extends AppCompatActivity {
             }
         });
 
+        // Progress bar
+        progressBar = binding.progressBar;
+        progressBar.setVisibility(View.INVISIBLE);
+
         // Find the toolbar view inside the activity layout
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) binding.toolbar;
         // Sets the Toolbar to act as the ActionBar for this Activity window.
         // Make sure the toolbar exists in the activity and is not null
         setSupportActionBar(toolbar);
 
         // Handle compose FAB
-        FloatingActionButton fab = findViewById(R.id.fabCompose);
+        FloatingActionButton fab = binding.fabCompose;
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,6 +142,14 @@ public class TimelineActivity extends AppCompatActivity {
         });
 
         populateHomeTimeline();
+
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                progressBar.setVisibility(View.VISIBLE);
+                populateHomeTimeline();
+            }
+        });
 
     }
 
@@ -235,6 +249,8 @@ public class TimelineActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     Log.e(TAG, "Json exception", e);
                 }
+
+                progressBar.setVisibility(View.INVISIBLE);
 
             }
 

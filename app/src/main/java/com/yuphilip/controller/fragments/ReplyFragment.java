@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +41,7 @@ public class ReplyFragment extends DialogFragment {
     private TwitterClient client;
     private long tweetId;
     private String tweetOP;
+    private ProgressBar progressBar;
 
     //endregion
 
@@ -84,6 +86,8 @@ public class ReplyFragment extends DialogFragment {
         etCompose = view.findViewById(R.id.etReply);
         btnTweet = view.findViewById(R.id.btnReply);
         tvReplyTo = view.findViewById(R.id.tvReplyTo);
+        progressBar = view.findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.INVISIBLE);
 
         String title = getArguments().getString("title", "Enter name");
         getDialog().setTitle(title);
@@ -109,6 +113,7 @@ public class ReplyFragment extends DialogFragment {
                     return;
                 }
 
+                progressBar.setVisibility(View.VISIBLE);
                 Toast.makeText(view.getContext(), tweetContent, Toast.LENGTH_LONG).show();
 
                 // Make an API call to Twitter to reply to tweet
@@ -116,6 +121,7 @@ public class ReplyFragment extends DialogFragment {
                     @Override
                     public void onSuccess(int statusCode, Headers headers, JSON json) {
                         Log.i(TAG, "onSuccess to reply to tweet");
+                        progressBar.setVisibility(View.INVISIBLE);
                         getActivity().finish();
                     }
 

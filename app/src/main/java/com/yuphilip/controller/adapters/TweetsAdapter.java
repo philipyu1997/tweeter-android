@@ -33,6 +33,7 @@ import com.yuphilip.model.helper.LinkifiedTextView;
 import com.yuphilip.model.net.TwitterApp;
 import com.yuphilip.model.net.TwitterClient;
 
+import org.json.JSONException;
 import org.parceler.Parcels;
 
 import java.util.List;

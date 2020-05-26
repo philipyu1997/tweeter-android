@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -42,6 +43,7 @@ public class ComposeFragment extends DialogFragment {
     private EditText etCompose;
     private Button btnTweet;
     private TwitterClient client;
+    private ProgressBar progressBar;
 
     //endregion
 
@@ -84,6 +86,8 @@ public class ComposeFragment extends DialogFragment {
 
         etCompose = view.findViewById(R.id.etReply);
         btnTweet = view.findViewById(R.id.btnReply);
+        progressBar = view.findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.INVISIBLE);
 
         String title = getArguments().getString("title", "Enter name");
         getDialog().setTitle(title);
@@ -108,6 +112,7 @@ public class ComposeFragment extends DialogFragment {
                     return;
                 }
 
+                progressBar.setVisibility(View.VISIBLE);
                 Toast.makeText(view.getContext(), tweetContent, Toast.LENGTH_LONG).show();
 
                 // Make an API call to Twitter to publish the tweet
@@ -115,6 +120,7 @@ public class ComposeFragment extends DialogFragment {
                     @Override
                     public void onSuccess(int statusCode, Headers headers, JSON json) {
                         Log.i(TAG, "onSuccess to publish tweet");
+                        progressBar.setVisibility(View.INVISIBLE);
 
                         try {
                             Tweet tweet = Tweet.fromJson(json.jsonObject);
