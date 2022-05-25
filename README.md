@@ -1,19 +1,19 @@
-# Tweeter
+# 🐣 Tweeter
 
-## Table of Contents
-1. [Overview](#Overview)
-2. [Product Specs](#Product-Specs)
-3. [App Walkthrough](#App-Walkthrough)
-4. [APIs](#APIs)
-5. [Libraries](#Libraries)
-6. [Credits](#Credits)
+## 📋 Table of Contents
+1. [Overview](#-Overview)
+2. [Product Specs](#-Product-Specs)
+3. [App Walkthrough](#-App-Walkthrough)
+4. [APIs](#-APIs)
+5. [Libraries](#-Libraries)
+6. [Credits](#-Credits)
 
-## Overview
+## 👀 Overview
 ### Description
 
 Tweeter is a simple Twitter client that allows users to view their feed and compose, favorite, and retweet tweets.
 
-## Product Specs
+## 📕 Product Specs
 ### User Stories
 
 - [x] User shall be able to sign in to Twitter using OAuth login.
@@ -38,21 +38,21 @@ Tweeter is a simple Twitter client that allows users to view their feed and comp
 - [x] User shall be able to take favorite (and unfavorite) or retweet actions on a tweet.
 - [x] User shall be able to open the Twitter app offline and see last loaded tweets. Persisted in SQLite tweets are refreshed on every application launch. While "live data" is displayed when app can get it from Twitter API, it is also saved for use in offline mode.
 
-## App Walkthrough
+## 🎬 App Walkthrough
 
 Here's a GIF of how the app works:
 
-<img src="https://raw.githubusercontent.com/py415/app-resources/master/android/android-tweeter.gif" width="250" />
+<img src="https://raw.githubusercontent.com/py415/app-resources/master/GIFs/android/android-tweeter.gif" width="250" />
 
-## APIs
+## 🔑 APIs
 
 - [Twitter API](https://developer.twitter.com/en) - Allow developers to access core Twitter data — including update timelines, status data, and user information.
 
-## Libraries
+## 📚 Libraries
 
 - [Android Async HTTP](https://github.com/codepath/CPAsyncHttpClient) - Simple asynchronous HTTP requests with JSON parsing.
 - [Glide](https://github.com/bumptech/glide) - Image loading and caching library for Android.
 
-## Credits
+## 💳 Credits
 
 >This is a companion project to CodePath's Professional Android Course, check out the full course at [www.codepath.org](https://codepath.org/).
